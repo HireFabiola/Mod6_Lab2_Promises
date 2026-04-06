@@ -8,23 +8,25 @@ fetchProductCatalog()
     .then((data) => {
         console.log(data);
 
-        // Get product reviews
-        for (let i=0; i<data.length; i++) {
-           fetchProductReviews(data[i].id)
-                .then((review) => {
+        // Get product reviews as long as catalogue is successfully retrieved
+        fetchProductReviews(2)
+            .then((review) => {
                 console.log(review);
             })
-
-            // Issue error for failure to retrieve reviews
             .catch((error) => {
-                console.log("An error occured:", error)
+                console.log("An error occurred:", error);
+            });
+
+        // Get sales report provided no failures in prior fetches
+        fetchSalesReport()
+            .then((salesData) => {
+                console.log(salesData);
             })
-        }
+            .catch((error) => {
+                console.error("An error occurred:", error);
+            });
     })
     // Issue error message for failed catalogue retrieval
     .catch((error) => {
         console.error("An error occurred:", error);
     });
-
-
-

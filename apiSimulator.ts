@@ -14,16 +14,24 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
     });
 };
 
-export const fetchProductReviews = (productId: number): Promise<string> []=> {
+export const fetchProductReviews = (productId: number): Promise<{ id: number; review: string; }[]> => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (Math.random() < 0.8) {
-                resolve([
-                     ( "Product" + productID + " is a Great item" ),
-                    ( "Product" + productID  + " Could be better" ),
-                ]);
+
+                // Establish mock reviews by ID
+                const reviews = [
+                    { id: 1, review: "Item 1 is a great item" },
+                    { id: 2, review: "Item 2 could be better" },
+                ];
+                for (let i = 0; i < reviews.length; i++) {
+                    if (reviews[i].id === productId) {
+                        resolve(reviews[i].review);
+                    }
+                }
+
             } else {
-                 console.log("Im in the reject block for Reviews")
+                console.log("Im in the reject block for Reviews")
                 reject(`Failed to fetch product review for product ID ${productId}`);
             }
         }, 1500);
@@ -33,17 +41,16 @@ export const fetchProductReviews = (productId: number): Promise<string> []=> {
 
 export const fetchSalesReport = (): Promise<{ totalSales: number; unitsSold: number; averagePrice: number }[]> => {
     return new Promise((resolve, reject) => {
-    setTimeout(() => {
-        if (Math.random() < 0.8) {
-        resolve([
-            { totalSales: 1000, unitsSold: 50, averagePrice: 25 },
-            { totalSales: 5000, unitsSold: 30, averagePrice: 10 },
-            console.log("Resolve success for Sales report"),
-        ]);
-        } else {
-             console.log("Im in the reject block Sates Report")
-        reject("Failed to fetch sales report");
-        }
-    }, 1000);
+        setTimeout(() => {
+            if (Math.random() < 0.8) {
+                resolve([
+                    { totalSales: 1000, unitsSold: 50, averagePrice: 25 },
+                    { totalSales: 5000, unitsSold: 30, averagePrice: 10 },
+                ]);
+            } else {
+                console.log("Im in the reject block Sates Report")
+                reject("Failed to fetch sales report");
+            }
+        }, 1000);
     });
 };
