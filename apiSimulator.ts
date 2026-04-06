@@ -5,7 +5,6 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
                 resolve([
                     { id: 1, name: "Laptop", price: 1200 },
                     { id: 2, name: "Headphones", price: 200 },
-                    console.log("Resolve success for Catalog"),
                 ]);
             } else {
                 console.log("Im in the reject block for Catalog")
@@ -15,18 +14,17 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
     });
 };
 
-export const fetchProductReviews = (productId: number): Promise<{ id: number; review: string; }[]> => {
+export const fetchProductReviews = (productId: number): Promise<string> []=> {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (Math.random() < 0.8) {
                 resolve([
-                    { id: 1, review: "Great item" },
-                    { id: 2, review: "Could be better" },
-                    console.log("Resolve success for Reviews"),
+                     ( "Product" + productID + " is a Great item" ),
+                    ( "Product" + productID  + " Could be better" ),
                 ]);
             } else {
                  console.log("Im in the reject block for Reviews")
-                reject("Failed to fetch product review for product ID ${productID}");
+                reject(`Failed to fetch product review for product ID ${productId}`);
             }
         }, 1500);
     });
@@ -49,6 +47,3 @@ export const fetchSalesReport = (): Promise<{ totalSales: number; unitsSold: num
     }, 1000);
     });
 };
-fetchProductCatalog();
-fetchProductReviews(1);
-fetchSalesReport();
